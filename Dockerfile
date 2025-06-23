@@ -29,7 +29,10 @@ RUN apk update \
 # Deleting keys
 	&& rm -rf /etc/ssh/ssh_host_dsa* /etc/ssh/ssh_host_ecdsa* /etc/ssh/ssh_host_ed25519* /etc/ssh/ssh_host_rsa* \
 # Config SSH
-        && sed -e "s|#PubkeyAuthentication yes|PubkeyAuthentication yes|" -e "s|#Password Authentication yes|PasswordAuthentication no|" /etc/ssh/sshd_config \ 
+        && sed -i -e "s|#PubkeyAuthentication yes|PubkeyAuthentication yes|" \
+               -e "s|#Password Authentication yes|PasswordAuthentication no|" \
+               -e "s|AllowTcpForwarding no|AllowTcpForwarding yes|" \
+          /etc/ssh/sshd_config \ 
 # Folder Data
 	&& mkdir -p /data \
 #Cleaning
